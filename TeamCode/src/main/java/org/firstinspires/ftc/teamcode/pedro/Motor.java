@@ -12,7 +12,7 @@ import dev.nextftc.hardware.actuators.NextServo;
 import dev.nextftc.robot.Mechanism;
 
 public class Motor implements Mechanism {
-    NextMotor Motor = new NextMotor("Motor");
+    NextMotor Motor = new NextMotor(RobotController.expansionHub(), 0);
     public Command go() {
         return instant(() -> Motor.setThrottle(0.7));
     }

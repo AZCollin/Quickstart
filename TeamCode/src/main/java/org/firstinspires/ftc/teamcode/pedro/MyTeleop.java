@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.pedro;
 
-import static dev.nextftc.robot.RobotState.robot;
-
 import com.pedropathing.ivy.Command;
 import com.pedropathing.ivy.commands.Commands;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
