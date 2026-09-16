@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedro;
+package org.firstinspires.ftc.teamcode.nextFTC.Opmodes;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 

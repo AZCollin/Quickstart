@@ -1,31 +1,22 @@
-package org.firstinspires.ftc.teamcode.pedro;
+package org.firstinspires.ftc.teamcode.nextFTC.Opmodes;
 
-import com.pedropathing.ivy.Command;
-import com.pedropathing.ivy.commands.Commands;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.robot.Robot;
+import org.firstinspires.ftc.teamcode.nextFTC.MyRobot;
 
-import org.firstinspires.ftc.teamcode.Claw;
-
-import dev.nextftc.hardware.actuators.NextMotor;
-import dev.nextftc.robot.Mechanism;
-import dev.nextftc.robot.Telemetry;
-import dev.nextftc.robot.drive.DriveCommands;
-import dev.nextftc.robot.opmode.BulkReadHook;
 import dev.nextftc.robot.opmode.NextOpMode;
 import dev.nextftc.robot.opmode.NextTeleop;
 import dev.nextftc.robot.triggers.CommandGamepad;
 
-@NextTeleop(name = "My Teleop")
+@NextTeleop(name = "Teleop")
 public class MyTeleop extends NextOpMode {
     private final MyRobot robot;
     CommandGamepad driver = new CommandGamepad(gamepad1);
+
 
     public MyTeleop(MyRobot robot) {
         super(robot);
         this.robot = robot;
     }
+
 
 
     @Override
