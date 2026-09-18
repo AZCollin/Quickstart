@@ -7,17 +7,11 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            url "https://repo.dairy.foundation/releases"
+            url 'https://repo.dairy.foundation/releases'
         }
     }
     dependencies {
-        classpath "dev.frozenmilk:Load:0.3.1"
-    }
-}
-buildscript {
-    repositories {
-        mavenCentral()
-        google()
+        classpath 'dev.frozenmilk:Load:0.3.1'
     }
 }
 

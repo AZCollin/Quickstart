@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.nextFTC.Opmodes;
 
+import static com.pedropathing.ivy.Scheduler.schedule;
+
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import dev.nextftc.hardware.RobotController;
@@ -15,6 +17,8 @@ public class Drivetrain implements Mechanism {
     NextMotor backRight = new NextMotor(RobotController.controlHub(), 3);
 
     public void startDrive(Gamepad gamepad) {
+        backLeft.setDirection(NextMotor.Direction.REVERSE);
+        frontRight.setDirection(NextMotor.Direction.REVERSE);
         DriveCommands.mecanumDrive(frontLeft, frontRight, backLeft, backRight, gamepad).schedule();
     }
 }

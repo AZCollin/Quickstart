@@ -27,7 +27,8 @@ public class MyTeleop extends NextOpMode {
     @Override
     public void periodic() {
         driver.a().whileTrue(robot.claw.open()).onFalse(robot.claw.close());
-        driver.b().whileTrue(robot.motor.go()).onFalse(robot.motor.stop());
+        driver.rightBumper().whileTrue(robot.motor.go()).onFalse(robot.motor.stop());
+        driver.leftBumper().whileTrue(robot.launcher.go()).onFalse(robot.launcher.stop());
 
     }
 
