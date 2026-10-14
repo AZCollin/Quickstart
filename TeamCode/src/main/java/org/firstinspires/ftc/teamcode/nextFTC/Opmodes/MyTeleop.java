@@ -1,7 +1,17 @@
 package org.firstinspires.ftc.teamcode.nextFTC.Opmodes;
 
-import org.firstinspires.ftc.teamcode.nextFTC.MyRobot;
+import static org.firstinspires.ftc.teamcode.nextFTC.Subystems.Launcher.D;
+import static org.firstinspires.ftc.teamcode.nextFTC.Subystems.Launcher.I;
+import static org.firstinspires.ftc.teamcode.nextFTC.Subystems.Launcher.P;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.pedropathing.ivy.Command;
+
+import org.firstinspires.ftc.teamcode.nextFTC.MyRobot;
+import org.firstinspires.ftc.teamcode.nextFTC.Subystems.Launcher;
+
+import dev.nextftc.robot.Mechanism;
+import dev.nextftc.robot.Telemetry;
 import dev.nextftc.robot.opmode.NextOpMode;
 import dev.nextftc.robot.opmode.NextTeleop;
 import dev.nextftc.robot.triggers.CommandGamepad;
@@ -17,8 +27,6 @@ public class MyTeleop extends NextOpMode {
         this.robot = robot;
     }
 
-
-
     @Override
     public void start() {
         robot.drivetrain.startDrive(gamepad1);
@@ -30,7 +38,13 @@ public class MyTeleop extends NextOpMode {
         driver.rightBumper().whileTrue(robot.motor.go()).onFalse(robot.motor.stop());
         driver.leftBumper().whileTrue(robot.launcher.go()).onFalse(robot.launcher.stop());
 
-    }
+        FtcDashboard.getInstance().getTelemetry().addData("Target Velocity", Launcher.targetVelocity / 100.0);
+        FtcDashboard.getInstance().getTelemetry().addData("Actual Velocity", robot.launcher.launcher.getEncoderVelocity());
+        telemetry.addData("Target velo", Launcher.targetVelocity / 100.0);
+        telemetry.addData("Actual Velocity", robot.launcher.launcher.getEncoderVelocity());
+        telemetry.update();
+        FtcDashboard.getInstance().getTelemetry().update();
 
+    }
 }
 
