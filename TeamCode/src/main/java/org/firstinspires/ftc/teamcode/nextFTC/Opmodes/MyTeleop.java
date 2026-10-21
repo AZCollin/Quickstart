@@ -34,8 +34,9 @@ public class MyTeleop extends NextOpMode {
     }
     @Override
     public void periodic() {
-        driver.a().whileTrue(robot.claw.open()).onFalse(robot.claw.close());
+        driver.a().whileTrue(robot.flapper.open()).onFalse(robot.flapper.close());
         driver.rightBumper().whileTrue(robot.motor.go()).onFalse(robot.motor.stop());
+        driver.rightTrigger().isOver(0.3).whileTrue(robot.intake.go()).onFalse(robot.intake.stop());
         driver.leftBumper().whileTrue(robot.launcher.go()).onFalse(robot.launcher.stop());
 
         FtcDashboard.getInstance().getTelemetry().addData("Target Velocity", Launcher.targetVelocity / 100.0);
