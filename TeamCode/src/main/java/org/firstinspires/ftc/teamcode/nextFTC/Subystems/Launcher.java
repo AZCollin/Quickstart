@@ -14,11 +14,11 @@ import dev.nextftc.robot.Mechanism;
 
 @Config
 public class Launcher implements Mechanism {
-    public static double P = 0.003;
+    public static double P = 0.001;
     public static double I = 0.0;
-    public static double D = 0.002;
+    public static double D = 0.0015;
 
-    public static double targetVelocity = -1300;
+    public static double targetVelocity = -1280;
     public NextMotor launcher = new NextMotor(RobotController.expansionHub(), 1, Radians.of(2 * Math.PI / 537.7));
 
     PIDController pid = new PIDController(new PIDCoefficients(P, I, D));
