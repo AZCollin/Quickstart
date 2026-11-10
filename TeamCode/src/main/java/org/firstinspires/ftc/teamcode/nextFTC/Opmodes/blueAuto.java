@@ -5,9 +5,11 @@ import com.pedropathing.ivy.Command;
 
 import static com.pedropathing.api.Paths.line;
 import static com.pedropathing.ivy.Scheduler.schedule;
+import static com.pedropathing.ivy.commands.Commands.waitMs;
 import static com.pedropathing.ivy.groups.Groups.sequential;
 import static com.pedropathing.ivy.pedro.PedroCommands.follow;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.opMode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.pedropathing.api.PoseFactory;
@@ -17,22 +19,28 @@ import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+
+import org.firstinspires.ftc.teamcode.nextFTC.MyRobot;
+import org.firstinspires.ftc.teamcode.nextFTC.Subystems.Launcher;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.pedropathing.ivy.Scheduler;
 
+import dev.nextftc.robot.opmode.NextOpMode;
 
 
 @Autonomous
 public class blueAuto extends OpMode {
+
     public Follower follower;
+    private MyRobot robot;
     private final PoseFactory poseFactory = PoseFactory.degrees();
     // Poses
-    private final Pose start = poseFactory.of(83.075, 133.0858, 90);
+    private final Pose start = poseFactory.of(85.075, 133.0858, 90);
     private final Pose startPoint = poseFactory.of(98, 121, 90);
     private final Pose preparePickup = poseFactory.of(118.4575, 133.1734, 0);
-    private final Pose pickup = poseFactory.of(133.2454, 132.7577, 0);
+    private final Pose pickup = poseFactory.of(128.2454, 130.7577, 0);
     private final Pose startCurveToShoot = poseFactory.of(133.2454, 132.7577, 0);
     private final Pose startCurveToShootEnd = poseFactory.of(81.8899, 8.4142, 270);
     private final Pose startCurveToShootPoint = poseFactory.of(121.6691, 47.5602, 0);
@@ -63,11 +71,23 @@ public class blueAuto extends OpMode {
     public Path path5() {
         return Paths.curve(backToShoot, backToShootPoint, backToShootEnd).linear(backToShoot, backToShootEnd);
     }
-    private Command autoRoutine() {
+    private Command autoRoutine(){
         return sequential(
+                robot.launcher.go(),
+                waitMs(2000),
+                robot.flapper.open(),
+                robot.intake.go(),
+                robot.motor.go(),
+                waitMs(200),
+                robot.intake.stop(),
+                waitMs(200),
+                robot.launcher.stop(),
+                robot.motor.stop(),
+                robot.flapper.close(),
                 follow(follower, path1()),
-                // Add mechanism commands here.
+
                 follow(follower, path2()),
+
                 follow(follower, path3()),
                 follow(follower, path4()),
                 follow(follower, path5())

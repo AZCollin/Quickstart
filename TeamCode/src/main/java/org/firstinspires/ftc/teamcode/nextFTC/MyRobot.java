@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.nextFTC;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.teamcode.nextFTC.Opmodes.Drivetrain;
 import org.firstinspires.ftc.teamcode.nextFTC.Subystems.Flapper;
 import org.firstinspires.ftc.teamcode.nextFTC.Subystems.Intake;
@@ -17,6 +19,8 @@ public class MyRobot implements NextRobot {
     public Motor motor = new Motor();
     public Launcher launcher = new Launcher();
     public Intake intake = new Intake();
+
+
 
     @Override
     public Set<Mechanism> getMechanisms() {
