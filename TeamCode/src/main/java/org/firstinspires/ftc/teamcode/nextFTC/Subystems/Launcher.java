@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.nextFTC.Subystems;
 
 import static dev.nextftc.units.Units.DegreesPerSecond;
 import static dev.nextftc.units.Units.Radians;
+import static dev.nextftc.units.Units.Volts;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.ivy.Command;
@@ -19,6 +20,7 @@ public class Launcher implements Mechanism {
     public static double D = 0.0005;
 
     public static double targetVelocity = -950;
+    public static double targetVelocity1 = -900;
     public NextMotor launcher = new NextMotor(RobotController.expansionHub(), 1, Radians.of(2 * Math.PI / 537.7));
 
     PIDController pid = new PIDController(new PIDCoefficients(P, I, D));
@@ -31,6 +33,17 @@ public class Launcher implements Mechanism {
 
             launcher.setVelocitySetpoint(
                     DegreesPerSecond.of(targetVelocity)
+            );
+        });
+    }
+    public Command go1() {
+        return instant(() -> {
+            launcher.getVelocityConstants().setKP(P);
+            launcher.getVelocityConstants().setKI(I);
+            launcher.getVelocityConstants().setKD(D);
+
+            launcher.setVelocitySetpoint(
+                    DegreesPerSecond.of(targetVelocity1)
             );
         });
     }
