@@ -8,7 +8,7 @@ import dev.nextftc.robot.Mechanism;
 
 public class Lift implements Mechanism {
 
-    NextServo Lift = new NextServo(RobotController.controlHub(), 5);
+    NextServo Lift = new NextServo(RobotController.controlHub(), 2);
 
     public Command up() { return instant(() -> Lift.setPosition(0.8)); }
     public Command down() { return instant(() -> Lift.setPosition(0.3)); }
