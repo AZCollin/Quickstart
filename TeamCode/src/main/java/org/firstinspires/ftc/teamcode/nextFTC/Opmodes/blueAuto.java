@@ -53,14 +53,14 @@ public class blueAuto extends NextOpMode {
     private final Pose startCurveToShoot = poseFactory.of(126.2454, 130.7577, 0);
     private final Pose startCurveToShootEnd = poseFactory.of(78.8899, 12.4142, 270);
     private final Pose startCurveToShootPoint = poseFactory.of(121.6691, 47.5602, 0);
-    private final Pose pickup2Start = poseFactory.of(81.8899, 8.4142, 270);
+    private final Pose pickup2Startbackup = poseFactory.of(82.8899, 15.4142, 270);
+    private final Pose pickup2Start = poseFactory.of(82.8899, 23.4142, 270);
     private final Pose pickup2End = poseFactory.of(125.1604, 95, 0);
-    private final Pose pickup2Point1 = poseFactory.of(117.5984, 44.3261, 0);
-    private final Pose pickup2Point2 = poseFactory.of(117.5984, 69.3261, 0);
-    private final Pose pickup2Point3 = poseFactory.of(107.5984, 94.3261, 0);
+    private final Pose pickup2Point1 = poseFactory.of(117.5984, 45.3261, 0);
+    private final Pose pickup2Point2 = poseFactory.of(107.5984, 95.3261, 0);
+
     private final Pose backToShoot = poseFactory.of(127.1604, 94.2148, 0);
-    private final Pose backToShootEnd = poseFactory.of(78.89, 12.41, 270);
-    private final Pose backToShootPoint = poseFactory.of(121.5545, 44.3122, 0);
+    private final Pose backToShootEnd = poseFactory.of(127.89, 39.41, 270);
 
     public Path path1() {
         return Paths.curve(start, startPoint, preparePickup).linear(start, preparePickup);
@@ -68,19 +68,22 @@ public class blueAuto extends NextOpMode {
     }
 
     public Path path2() {
-        return Paths.line(preparePickup, pickup).constant(pickup).with(Constants.foresightConfig.maxPathSpeed.at(0.4));
+        return Paths.line(preparePickup, pickup).constant(pickup);
     }
 
     public Path path3() {
         return Paths.curve(startCurveToShoot, startCurveToShootPoint, startCurveToShootEnd).linear(startCurveToShoot, startCurveToShootEnd);
     }
+    public Path path98() {
+        return Paths.line(startCurveToShootEnd, pickup2Start).constant(pickup2Start);
+    }
 
     public Path path4() {
-        return Paths.through(pickup2Start, pickup2Point1,pickup2Point2,pickup2Point3, pickup2End).linear(pickup2Start, pickup2End);
+        return Paths.through(pickup2Start, pickup2Point1,pickup2Point2,pickup2End).linear(pickup2Startbackup, pickup2End);
     }
 
     public Path path5() {
-        return Paths.curve(backToShoot, backToShootPoint, backToShootEnd).linear(backToShoot, backToShootEnd);
+        return Paths.line(backToShoot, backToShootEnd).constant(backToShoot);
     }
     private Command autoRoutine(){
         return sequential(
@@ -100,11 +103,12 @@ public class blueAuto extends NextOpMode {
                         robot.flapper.close()
                         ),
                 follow(follower, path1()),
+                robot.intake.go(),
+                robot.motor.go(),
                 parallel(
                     follow(follower, path2()),
-                        robot.flapper.close(),
-                        robot.intake.go(),
-                        robot.motor.go()
+                        robot.flapper.close()
+
 
                         ),
                 follow(follower, path3()),
@@ -116,7 +120,7 @@ public class blueAuto extends NextOpMode {
                 waitMs(2000),
                 robot.motor.stop(),
                 robot.flapper.close(),
-
+                follow(follower, path98()),
                 parallel(
                         follow(follower, path4()),
                         sequential(
